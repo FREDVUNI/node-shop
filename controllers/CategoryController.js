@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 const get_categories = async(req,res) =>{
     try{
         const categories = await prisma.category.findMany({
-            include:{product:true}
+            include:{products:true}
         })
         res.status(200).json({message:"all categories",data:categories})
     }
@@ -17,7 +17,7 @@ const add_category = async(req,res) =>{
     try{
         const {category} = req.body
         const categories = await prisma.category.findMany({})
-        const filter = categories.some(item => item.category == category)
+        const filter = categories.some(item => item.category == req.body.category)
 
         if(!filter){
             await prisma.category.create({
@@ -40,7 +40,7 @@ const get_category = async(req,res) =>{
             where:{
                 id:Number(id)
             },
-            include:{product:true}
+            include:{products:true}
         })
 
         if(category){

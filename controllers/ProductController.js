@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 const get_products = async(req,res) =>{
     try{
         const products = await prisma.product.findMany({
-            include:{category:true}
+            include:{Category:true}
         })
         res.status(200).json({message:"all products",data:products})
     }
@@ -24,7 +24,13 @@ const add_product = async(req,res) =>{
 
         if(!products){
             await prisma.product.create({
-                data: {product,price,description,image,categoryId}
+                data: {
+                    product,
+                    price,
+                    description,
+                    image,
+                    categoryId
+                }
             })
             res.status(200).json({message:"Product has been created."})
         }else{
@@ -43,7 +49,7 @@ const get_product = async(req,res) =>{
             where:{
                 id:Number(id)
             },
-            include:{category:true}
+            include:{Category:true}
         })
 
         if(product){
