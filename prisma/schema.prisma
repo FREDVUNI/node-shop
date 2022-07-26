@@ -26,6 +26,13 @@ model Category {
   products Product[]
 }
 
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  email String @unique
+  password String
+}
+
 model Cart {
   id       Int       @id @default(autoincrement())
   title String
