@@ -14,7 +14,7 @@ app.get("/",(req,res)=>{
     res.status(200)
     .json({
         status:200, 
-        message:"API for the e-commerce store. Check out it's documentation below 🐻",
+        message:"API for the e-commerce store. Check out it's documentation below 🤷‍♂️",
         api_documentation: "https://documenter.getpostman.com/view/21884902/UzJQqEYA"
     })
 })
