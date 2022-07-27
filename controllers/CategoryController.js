@@ -3,9 +3,9 @@ const prisma = new PrismaClient()
 
 const get_categories = async(req,res) =>{
     try{
+        process.env.SECRET_KEY
         const categories = await prisma.category.findMany({
             include:{products:true},
-            key:process.env.SECRET_KEY
         })
         res.status(200).json({message:"all categories",data:categories})
     }
