@@ -1,5 +1,6 @@
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient()
+const {unlink} = require('fs');
 
 const get_products = async(req,res) =>{
     try{
@@ -73,6 +74,10 @@ const update_product = async(req,res) =>{
             },
         })
         if(product){
+            unlink(req.file.path,(err)=>{
+                if(err) return res.status(500).json('failed to delete file');
+            });
+
             res.status(200).json({message:"Product has been updated."})
         }else{
             res.status(404).json("The product id does not exist.")
@@ -92,6 +97,10 @@ const delete_product = async(req,res) =>{
             },
         })
         if(product){
+            unlink(req.file.path,(err)=>{
+                if(err) return res.status(500).json('failed to delete file');
+            });
+
             res.status(200).json({message:"Product has been deleted."})
         }else{
             res.status(404).json("The product id does not exist.")
