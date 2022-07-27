@@ -5,7 +5,7 @@ const {unlink} = require('fs');
 const get_products = async(req,res) =>{
     try{
         const products = await prisma.product.findMany({
-            include:{category:true}
+            include:{Category:true}
         })
         res.status(200).json({message:"all products",data:products})
     }
