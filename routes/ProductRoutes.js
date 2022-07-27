@@ -28,7 +28,7 @@ const {
 
 router.get("/",get_products)
 
-router.post("/",[ authenticate,validateSchema(productSchema) ],upload.single("image"),async(req,res)=>{
+router.post("/",upload.single("image"),async(req,res)=>{
     try{
         const result = await cloudinary.v2.uploader.upload(req.file.path,{folder:'shop'})
         const products = await prisma.product.findUnique({
