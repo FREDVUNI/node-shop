@@ -14,7 +14,7 @@ const {
 } = require("../controllers/CategoryController")
 
 router.get("/",get_categories)
-router.post("/",validateSchema(categorySchema),add_category)
+router.post("/",[authenticate,validateSchema(categorySchema)],add_category)
 router.get("/:id",get_category)
 router.patch("/:id",[authenticate,validateSchema(categorySchema)],update_category)
 router.delete("/:id",authenticate,delete_category)
