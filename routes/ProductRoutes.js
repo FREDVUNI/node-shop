@@ -32,9 +32,9 @@ router.post("/",[authenticate,validateSchema(productSchema)],upload.single("imag
     try{
         const result = await cloudinary.v2.uploader.upload(req.file.path,{folder:'shop'})
         const products = await prisma.product.findUnique({
-            where:{
+            where:{ 
                 product:req.body.product 
-            }
+            }  
         })
 
         if(!products){
