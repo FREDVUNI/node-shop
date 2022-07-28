@@ -7,7 +7,7 @@ const get_products = async(req,res) =>{
         const products = await prisma.product.findMany({
             include:{category:true}
         })
-        res.status(200).json({message:"all products",data:products})
+        res.status(200).json(products)
     }
     catch(error){
         res.status(500).json(error.message || "There was a server error.")
@@ -54,7 +54,7 @@ const get_product = async(req,res) =>{
         })
 
         if(product){
-            res.status(200).json({data:product})
+            res.status(200).json({product})
         }else{
             res.status(404).json("The product id does not exist.")
         }
