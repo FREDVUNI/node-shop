@@ -16,7 +16,7 @@ model Product {
   price       String
   description String
   image       String  
-  Category    Category @relation(fields: [categoryId], references: [id],onDelete: Restrict, onUpdate: Restrict)
+  category    Category @relation(fields: [categoryId], references: [id],onDelete: Restrict, onUpdate: Restrict)
   categoryId  Int
 }
 
