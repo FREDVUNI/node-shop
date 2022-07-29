@@ -54,7 +54,7 @@ const get_product = async(req,res) =>{
         })
 
         if(product){
-            res.status(200).json({product})
+            res.status(200).json(product)
         }else{
             res.status(404).json("The product id does not exist.")
         }
