@@ -48,11 +48,11 @@ const signIn = async(req,res) =>{
         if(!passwordCheck) res.status(400).json("Invalid email password combination")
 
         const user = jwt.sign({
-            id:users.id,name:users.name,email:users.email
+            id:users.id,username:users.username,email:users.email
         },process.env.SECRET_KEY)
 
         res.status(200).json({
-            token:user
+            token:user,
         })
     }
     catch(error){
