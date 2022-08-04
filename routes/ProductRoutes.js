@@ -26,7 +26,7 @@ const {
     update_product,
 } = require("../controllers/ProductController")
 
-router.get("/",get_products)
+router.get("/",get_products) 
 
 router.post("/",upload.single("image"),[authenticate,validateSchema(productSchema)],async(req,res)=>{
     try{
