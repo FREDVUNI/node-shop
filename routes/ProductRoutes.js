@@ -24,7 +24,6 @@ const {
     get_products,
     get_product,
     update_product,
-    delete_product
 } = require("../controllers/ProductController")
 
 router.get("/",get_products)
@@ -46,7 +45,7 @@ router.post("/",upload.single("image"),[authenticate,validateSchema(productSchem
                     description:req.body.description,
                     image:result.url,
                     cloudinaryId:result.public_url,
-                    categoryId:Number(req.body.categoryId)
+                    category:Number(req.body.categoryId)
                 }
             })
             res.status(200).json({message:"Product has been created."})
@@ -78,7 +77,7 @@ router.patch("/:id",upload.single("image"),[authenticate,validateSchema(productS
                     description:req.body.description ? req.body.description: products.description,
                     image:result.url ? result.url : products.image,
                     cloudinaryId:result.public_id ? products.cloudinaryId:result.public_id,
-                    categoryId:Number(req.body.categoryId) ? Number(req.body.categoryId): products.categoryId
+                    category:Number(req.body.categoryId) ? Number(req.body.categoryId): products.categoryId
                 },
                 where:{
                     id:Number(id)

@@ -30,7 +30,8 @@ const add_product = async(req,res) =>{
                     price,
                     description,
                     image,
-                    categoryId
+                    categoryId,
+                    cloudinaryId
                 }
             })
             res.status(200).json({message:"Product has been created."})
