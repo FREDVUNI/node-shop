@@ -16,7 +16,7 @@ model Product {
   price       String
   description String
   image       String  
-  cloudinaryId       String  
+  cloudinaryId String  @unique
   category    Category @relation(fields: [categoryId], references: [id],onDelete: Restrict, onUpdate: Restrict)
   categoryId  Int
 }

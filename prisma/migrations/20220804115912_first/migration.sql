@@ -5,6 +5,7 @@ CREATE TABLE "Product" (
     "price" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "image" TEXT NOT NULL,
+    "cloudinaryId" TEXT NOT NULL,
     "categoryId" INTEGER NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
@@ -21,7 +22,7 @@ CREATE TABLE "Category" (
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "username" TEXT NOT NULL, 
+    "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
@@ -41,6 +42,9 @@ CREATE TABLE "Cart" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_product_key" ON "Product"("product");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Product_cloudinaryId_key" ON "Product"("cloudinaryId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Category_category_key" ON "Category"("category");
