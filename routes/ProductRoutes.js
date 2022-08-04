@@ -45,6 +45,7 @@ router.post("/",upload.single("image"),[authenticate,validateSchema(productSchem
                     price:req.body.price,
                     description:req.body.description,
                     image:result.url,
+                    cloudinaryId:result.public_url,
                     categoryId:Number(req.body.categoryId)
                 }
             })
@@ -69,15 +70,14 @@ router.patch("/:id",upload.single("image"),[authenticate,validateSchema(productS
         })
 
         if(!products){
-            unlink(req.file.path,(err)=>{
-                if(err) return res.status(500).json('failed to delete file');
-            });
+            await cloudinary.v2.uploader.destroy(products.cloudinaryId,{folder:'shop'})
             await prisma.product.update({
                 data: {
                     product:req.body.product ? req.body.product: products.product,
                     price:req.body.price ? req.body.price: products.price,
                     description:req.body.description ? req.body.description: products.description,
                     image:result.url ? result.url : products.image,
+                    cloudinaryId:result.public_id ? products.cloudinaryId:result.public_id,
                     categoryId:Number(req.body.categoryId) ? Number(req.body.categoryId): products.categoryId
                 },
                 where:{
@@ -108,6 +108,8 @@ router.delete("/:id",authenticate,async(req,res)=>{
             }  
         })
         if(!productId) return res.status(404).json("The product id does not exist.")
+
+        await cloudinary.v2.uploader.destroy(productId.cloudinaryId,{folder:'shop'})
 
         const product = await prisma.product.delete({
             where:{
