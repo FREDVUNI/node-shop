@@ -30,22 +30,22 @@ router.get("/",get_products)
 
 router.post("/",upload.single("image"),[authenticate,validateSchema(productSchema)],async(req,res)=>{
     try{
-        const result = await cloudinary.v2.uploader.upload(req.file.path,{folder:'shop'})
         const products = await prisma.product.findUnique({
             where:{ 
                 product:req.body.product 
             }  
         })
-
         if(!products){
+            const result = await cloudinary.v2.uploader.upload(req.file.path,{folder:'shop'})
+            
             await prisma.product.create({
-                data: {
+                data: { 
                     product:req.body.product,
                     price:req.body.price,
                     description:req.body.description,
                     image:result.url,
                     categoryId:Number(req.body.categoryId),
-                    cloudinaryId:result.public_url,
+                    cloudinaryId:result.public_id,
                 }
             })
             res.status(200).json({message:"Product has been created."})
@@ -78,7 +78,6 @@ router.patch("/:id",upload.single("image"),[authenticate,validateSchema(productS
                     image:result.url ? result.url : products.image,
                     categoryId:Number(req.body.categoryId) ? Number(req.body.categoryId): products.categoryId,
                     cloudinaryId:result.public_id ? products.cloudinaryId:result.public_id,
-
                 },
                 where:{
                     id:Number(id)
