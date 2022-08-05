@@ -7,7 +7,7 @@ const get_categories = async(req,res) =>{
         const categories = await prisma.category.findMany({
             include:{products:true},
         })
-        res.status(200).json({message:"all categories",data:categories})
+        res.status(200).json(categories)
     }
     catch(error){
         res.status(500).json(error.message || "There was a server error.")
