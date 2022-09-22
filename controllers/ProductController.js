@@ -2,7 +2,7 @@ const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient()
 const {unlink} = require('fs');
 
-const get_products = async(req,res) =>{
+const getProducts = async(req,res) =>{
     try{
         const products = await prisma.product.findMany({
             include:{category:true}
@@ -14,7 +14,7 @@ const get_products = async(req,res) =>{
     }
 }
 
-const add_product = async(req,res) =>{
+const addProduct = async(req,res) =>{
     try{
         const {product,price,description,image,categoryId} = req.body
         const products = await prisma.product.findUnique({
@@ -44,7 +44,7 @@ const add_product = async(req,res) =>{
     }
 }
 
-const get_product = async(req,res) =>{
+const getProduct = async(req,res) =>{
     try{
         const id = await req.params.id
         const product = await prisma.product.findUnique({
@@ -65,7 +65,7 @@ const get_product = async(req,res) =>{
     }
 }
 
-const update_product = async(req,res) =>{
+const updateProduct = async(req,res) =>{
     try{
         const id = req.params.id
         const product = await prisma.product.update({
@@ -89,7 +89,7 @@ const update_product = async(req,res) =>{
     }
 }
 
-const delete_product = async(req,res) =>{
+const deleteProduct = async(req,res) =>{
     try{
         const id = req.params.id
         const product = await prisma.product.delete({
@@ -113,9 +113,9 @@ const delete_product = async(req,res) =>{
 }
 
 module.exports = {
-    get_products,
-    add_product,
-    get_product,
-    update_product,
-    delete_product
+    getProducts,
+    addProduct,
+    getProduct,
+    updateProduct,
+    deleteProduct
 }

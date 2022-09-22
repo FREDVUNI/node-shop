@@ -21,12 +21,12 @@ const storage = multer.diskStorage({})
 const upload = multer({storage})
 
 const {
-    get_products,
-    get_product,
-    update_product,
+    getProducts,
+    getProduct,
+    updateProduct,
 } = require("../controllers/ProductController")
 
-router.get("/",get_products) 
+router.get("/",getProducts) 
 
 router.post("/",upload.single("image"),[authenticate,validateSchema(productSchema)],async(req,res)=>{
     try{
@@ -93,8 +93,8 @@ router.patch("/:id",upload.single("image"),[authenticate,validateSchema(productS
     }
 })
 
-router.get("/:id",get_product)
-router.patch("/:id",[authenticate,validateSchema(productSchema)],update_product)
+router.get("/:id",getProduct)
+router.patch("/:id",[authenticate,validateSchema(productSchema)],updateProduct)
 
 
 router.delete("/:id",authenticate,async(req,res)=>{

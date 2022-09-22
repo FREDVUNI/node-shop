@@ -60,7 +60,7 @@ const signIn = async(req,res) =>{
     }
 }
 
-const get_users = async(req,res) =>{
+const getUsers = async(req,res) =>{
     try{
         const users = await prisma.user.findMany({})
         res.status(200).json(users)
@@ -73,5 +73,5 @@ const get_users = async(req,res) =>{
 module.exports = {
     signIn,
     signUp,
-    get_users
+    getUsers
 }
