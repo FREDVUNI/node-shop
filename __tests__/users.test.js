@@ -11,12 +11,12 @@ test('should get all the users',async()=>{
 
 test('should fail because the email already exists',async()=>{
     await request(app)
-    .post('/api/v1/users/sign-up')
+    .post('/api/v1/users/signup')
     .expect(400)
 })
 
 test('Invalid email password combination',async()=>{
     await request(app)
-    .post('/api/v1/users/sign-in')
+    .post('/api/v1/users/login')
     .expect(400)
 })
