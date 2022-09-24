@@ -8,3 +8,15 @@ test('should get all the users',async()=>{
     .get('/api/v1/users')
     .expect(200)
 })
+
+test('should fail because the email already exists',async()=>{
+    await request(app)
+    .post('/api/v1/users/signup')
+    .expect(400)
+})
+
+test('Invalid email password combination',async()=>{
+    await request(app)
+    .post('/api/v1/users/login')
+    .expect(400)
+})

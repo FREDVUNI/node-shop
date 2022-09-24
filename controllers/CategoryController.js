@@ -1,20 +1,21 @@
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient()
 
-const get_categories = async(req,res) =>{
+const getCategories = async(req,res) =>{
     try{
+        
         const categories = await prisma.category.findMany({
-            include:{products:true}
+            include:{products:true},
         })
-        res.status(200).json({message:"all categories",data:categories})
+        res.status(200).json(categories)
     }
     catch(error){
         res.status(500).json(error.message || "There was a server error.")
     }
 }
 
-const add_category = async(req,res) =>{
-    try{
+const addCategory = async(req,res) =>{
+    try{ 
         const {category} = req.body
         const categories = await prisma.category.findMany({})
         const filter = categories.some(item => item.category == req.body.category)
@@ -33,7 +34,7 @@ const add_category = async(req,res) =>{
     }
 }
 
-const get_category = async(req,res) =>{
+const getCategory = async(req,res) =>{
     try{
         const id = await req.params.id
         const category = await prisma.category.findUnique({
@@ -54,7 +55,7 @@ const get_category = async(req,res) =>{
     }
 }
 
-const update_category = async(req,res) =>{
+const updateCategory = async(req,res) =>{
     try{
         const id = req.params.id
         const category = await prisma.category.update({
@@ -74,7 +75,7 @@ const update_category = async(req,res) =>{
     }
 }
 
-const delete_category = async(req,res) =>{
+const deleteCategory = async(req,res) =>{
     try{
         const id = req.params.id
         const category = await prisma.category.delete({
@@ -94,9 +95,9 @@ const delete_category = async(req,res) =>{
 }
 
 module.exports = {
-    get_categories,
-    add_category,
-    get_category,
-    update_category,
-    delete_category
+    getCategories,
+    addCategory,
+    getCategory,
+    updateCategory,
+    deleteCategory
 }
