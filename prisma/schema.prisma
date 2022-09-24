@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  product     String   @unique
-  price       String
-  description String
-  image       String  
-  Category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int
+  id           Int      @id @default(autoincrement())
+  product      String   @unique
+  price        String
+  description  String
+  image        String
+  cloudinaryId String   @unique
+  category     Category @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  categoryId   Int
 }
 
 model Category {
@@ -27,16 +28,16 @@ model Category {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id       Int    @id @default(autoincrement())
   username String @unique
-  email String @unique
+  email    String @unique
   password String
 }
 
 model Cart {
-  id       Int       @id @default(autoincrement())
-  title String
+  id       Int    @id @default(autoincrement())
+  title    String
   quantity String
-  image String
+  image    String
   total    String
 }

@@ -8,3 +8,15 @@ test('should get all the products',async()=>{
     .get('/api/v1/products')
     .expect(200)
 })
+
+test('should fail because the product already exists',async()=>{
+    await request(app)
+    .post('/api/v1/products')
+    .expect(400)
+})
+
+test('should get single product using product Id',async()=>{
+    await request(app)
+    .post('/api/v1/products/1')
+    .expect(200)
+})
