@@ -7,4 +7,4 @@ https://github.com/FREDVUNI/react-shop
 # Note
 After cloning the app, run npm install to install all the packages in package.json
 
-Create .env file at root level and to add environment varaibles
+Create .env file at root level and add environment variables
