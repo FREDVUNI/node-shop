@@ -1,21 +1,23 @@
 {
-  "name": "full-stack-ecommerce-project",
+  "name": "full-stack-shop-project",
   "version": "1.0.0",
-  "description": "A javascript full stack ecommerce project in Node and React JS",
+  "description": "A javascript full stack e-commerce project in Node and React JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "test": "jest --coverage",
+    "start": "nodemon index.js",
+    "db-migrate": "npx prisma migrate deploy"
   },
   "keywords": [
-    "javascript-ecommerce"
+    "javascript-e-commerce"
   ],
   "author": "Fred Vuni",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.1.0",
     "bcrypt": "^5.0.1",
-    "cloudinary": "^1.30.1",
+    "cloudinary": "^1.30.1", 
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "jest": "^28.1.3",

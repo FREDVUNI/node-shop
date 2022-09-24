@@ -17,7 +17,7 @@ const signUp = async(req,res) =>{
         if(!users){
             const new_user = await prisma.user.create({
                 data:{
-                    name:req.body.name,
+                    username:req.body.username,
                     email:req.body.email,
                     password:password_hash
                 } 
@@ -48,22 +48,22 @@ const signIn = async(req,res) =>{
         if(!passwordCheck) res.status(400).json("Invalid email password combination")
 
         const user = jwt.sign({
-            id:users.id,name:users.name,email:users.email
+            id:users.id,username:users.username,email:users.email
         },process.env.SECRET_KEY)
 
-        res.send(user)
+        res.status(200).json({
+            token:user,
+        })
     }
     catch(error){
         res.status(500).json(error.message || "There was a server error.")
     }
 }
 
-const get_users = async(req,res) =>{
+const getUsers = async(req,res) =>{
     try{
         const users = await prisma.user.findMany({})
-        res.status(200).json({
-            data: users
-        })
+        res.status(200).json(users)
     }
     catch(error){
         res.status(500).json(error.message || "There was a server error.")
@@ -73,5 +73,5 @@ const get_users = async(req,res) =>{
 module.exports = {
     signIn,
     signUp,
-    get_users
+    getUsers
 }

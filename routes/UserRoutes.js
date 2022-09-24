@@ -1,14 +1,17 @@
 const express = require("express")
 const router = express.Router()
+const authenticate = require("../helpers/authenticate")
+const validateSchema = require("../helpers/validateSchema")
+const {SignInSchema,SignUpSchema} = require("../helpers/userSchema")
 
 const {
-    get_users,
+    getUsers,
     signUp,
     signIn,
 } = require("../controllers/UserController")
 
-router.get("/",get_users)
-router.post("/",signUp)
-router.post("/",signIn)
+router.get("/",authenticate,getUsers)
+router.post("/signup",validateSchema(SignUpSchema),signUp)
+router.post("/login",validateSchema(SignInSchema),signIn)
 
 module.exports = router

@@ -1,18 +1,22 @@
 const express = require("express")
 const router = express.Router()
 
+const authenticate = require("../helpers/authenticate")
+const validateSchema = require("../helpers/validateSchema")
+const categorySchema = require("../helpers/categorySchema")
+
 const {
-    get_categories,
-    add_category,
-    get_category,
-    update_category,
-    delete_category
+    getCategories,
+    addCategory,
+    getCategory,
+    updateCategory,
+    deleteCategory
 } = require("../controllers/CategoryController")
 
-router.get("/",get_categories)
-router.post("/",add_category)
-router.get("/:id",get_category)
-router.update("/:id",update_category)
-router.delete("/:id",delete_category)
+router.get("/",getCategories)
+router.post("/",[authenticate,validateSchema(categorySchema)],addCategory)
+router.get("/:id",getCategory)
+router.patch("/:id",[authenticate,validateSchema(categorySchema)],updateCategory)
+router.delete("/:id",authenticate,deleteCategory)
 
 module.exports = router
